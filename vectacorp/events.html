@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Event-Handling</title>
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+</head>
+<script>
+    $(function () {
+        $("#myButton1").click(function (event) {
+            window.alert("The button has been clicked!");
+        });
+        $("#myButton2").bind("click", function (event) {
+            window.alert("The button has been clicked!");
+        });
+        $("#myButton3").on("click", function (event) {
+            window.alert("The button has been clicked!");
+        });
+        $(".myButton").on("click", function () {
+            window.alert("The button has been clicked!");
+        })
+        $("#div1").on({
+            click: function () {
+                window.alert("div was clicked");
+            },
+            mouseenter: function () {
+                window.alert("mouse entered into div");
+            },
+            mouseleave: function () {
+                window.alert("mouse left div");
+            }
+
+        }).css("background-color", "silver");
+        $("#div1").height("400px");
+        $("#div1").width("400px");
+
+        $("#div2").on({
+            click: function () {
+                $("span").text("Mouse Clicked div");
+            },
+            mouseenter: function () {
+                $("span").text("Mouse entered div");
+            },
+            mouseleave: function () {
+                $("span").text("Mouse left div");
+            }
+
+        }).css("background-color", "silver");
+        $("#div2").height("400px");
+        $("#div2").width("400px");
+
+        $("a").click(function (event) {
+            event.preventDefault();
+            $(this).css("color", "red");
+            window.alert(event.target.nodeName + " triggred the event");
+        });
+
+        $(window).resize(function () {
+            $("#resize").text("Height: " + $(window).height() + " Width " + $(window).width())
+        });
+
+        $("#bg-color").on({
+            focus: function () {
+                $(this).css("background-color", "lightgrey");
+            },
+            blur: function () {
+                $(this).css("background-color", "white");
+            }
+
+        });
+
+
+
+        $("#submit").on("click", function (e) {
+            e.preventDefault();
+            if($("#name").val()==="" && $("#email").val()===""){
+                window.alert("Both fields are required!")
+            }else if ($("#name").val() === "" ){window.alert("Name is required!")}
+            else if($("#email").val() === ""){window.alert("Email is required!")}
+
+            if ($("#name").val() === "" && $("#email").val() === "") {
+                $("#name").css("border", "solid 1px red");
+                $("#email").css("border", "solid 1px red");
+            } else if ($("#name").val() === "") {
+                $("#name").css("border", "solid 1px red");
+            } else if ($("#email").val() === "") {
+                $("#email").css("border", "solid 1px red");}
+            
+            if ($("#name").val() !== "" && $("#email").val() !== "") {
+                $("#name").css("border", "solid 1px green");
+                $("#email").css("border", "solid 1px green");
+            }
+
+
+        });
+
+
+    });
+</script>
+
+<body>
+    <button type="button" id="myButton1">Button1 using .click method</button><br><br>
+    <button type="button" id="myButton2">Button2 using .bind method</button><br><br>
+    <button type="button" id="myButton3">Button3 using .on method</button><br><br>
+    <button type="button" class="myButton">Button4-single handler</button>
+    <button type="button" class="myButton">Button5-single handler</button><br><br>
+    <div id="div1"></div><br><br>
+    <div id="div2"></div><br>
+    <span></span><br>
+    <a href="www.modulemedia.com">Link to ModuleMedia</a><br><br>
+    <div id="resize"></div>
+    Background-color changing textbox: <input type="text" id="bg-color"><br><br>
+    <form>
+        Name : <input type="text" id="name"><br>
+        Email : <input type="email" id="email"><br><br>
+        <button type="submit" id="submit">Submit</button>
+
+    </form>
+
+</body>
+
+</html>
